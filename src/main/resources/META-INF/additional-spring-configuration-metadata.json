@@ -1,0 +1,19 @@
+{
+  "properties": [
+    {
+      "name": "rule-modification-service.injectUrl",
+      "type": "java.lang.String",
+      "description": "Description for rule-modification-service.injectUrl."
+    },
+    {
+      "name": "rule-modification-service.translateUrl",
+      "type": "java.lang.String",
+      "description": "Description for rule-modification-service.translateUrl."
+    },
+    {
+      "name": "rule-modification-service.injectTranslateUrl",
+      "type": "java.lang.String",
+      "description": "Description for rule-modification-service.injectTranslateUrl."
+    }
+  ]
+}

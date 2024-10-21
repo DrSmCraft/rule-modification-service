@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.3.4</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>com.cdss4pcp</groupId>
+    <artifactId>rule-modification-service</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>rule-modification-service</name>
+    <description>rule-modification-service</description>
+    <url/>
+    <licenses>
+        <license/>
+    </licenses>
+    <developers>
+        <developer/>
+    </developers>
+    <scm>
+        <connection/>
+        <developerConnection/>
+        <tag/>
+        <url/>
+    </scm>
+    <properties>
+        <java.version>17</java.version>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.skyscreamer/jsonassert -->
+        <dependency>
+            <groupId>org.skyscreamer</groupId>
+            <artifactId>jsonassert</artifactId>
+            <version>1.5.3</version>
+            <scope>test</scope>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.antlr</groupId>
+            <artifactId>antlr4</artifactId>
+            <version>4.10.1</version>
+            <!--            <scope>system</scope>-->
+            <!--            <systemPath>${pom.basedir}/lib/antlr4-4.10.1.jar</systemPath>-->
+        </dependency>
+
+        <dependency>
+            <groupId>org.antlr</groupId>
+            <artifactId>antlr4-runtime</artifactId>
+            <version>4.10.1</version>
+            <!--            <scope>system</scope>-->
+            <!--            <systemPath>${pom.basedir}/lib/antlr4-runtime-4.10.1.jar</systemPath>-->
+        </dependency>
+
+        <dependency>
+            <groupId>org.antlr</groupId>
+            <artifactId>antlr-runtime</artifactId>
+            <version>3.5.3</version>
+            <!--            <scope>system</scope>-->
+            <!--            <systemPath>${pom.basedir}/lib/antlr-runtime-3.5.3.jar</systemPath>-->
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.12.0</version>
+            <!--            <scope>system</scope>-->
+            <!--            <systemPath>${pom.basedir}/lib/commons-lang3-3.12.0.jar</systemPath>-->
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-text</artifactId>
+            <version>1.10.0</version>
+            <!--            <scope>system</scope>-->
+            <!--            <systemPath>${pom.basedir}/lib/commons-text-1.10.0.jar</systemPath>-->
+        </dependency>
+        <dependency>
+            <groupId>info.cqframework</groupId>
+            <artifactId>cql</artifactId>
+            <version>3.2.0</version>
+            <!--            <scope>system</scope>-->
+            <!--            <systemPath>${pom.basedir}/lib/cql-3.2.0.jar</systemPath>-->
+        </dependency>
+
+        <dependency>
+            <groupId>info.cqframework</groupId>
+            <artifactId>cql-to-elm</artifactId>
+            <version>3.2.0</version>
+            <!--            <scope>system</scope>-->
+            <!--            <systemPath>${pom.basedir}/lib/cql-to-elm-3.2.0.jar</systemPath>-->
+        </dependency>
+
+        <dependency>
+            <groupId>info.cqframework</groupId>
+            <artifactId>cql-to-elm-cli</artifactId>
+            <version>3.2.0</version>
+            <!--            <scope>system</scope>-->
+            <!--            <systemPath>${pom.basedir}/lib/cql-to-elm-cli-3.2.0.jar</systemPath>-->
+        </dependency>
+
+        <dependency>
+            <groupId>info.cqframework</groupId>
+            <artifactId>elm</artifactId>
+            <version>3.2.0</version>
+            <!--            <scope>system</scope>-->
+            <!--            <systemPath>${pom.basedir}/lib/elm-3.2.0.jar</systemPath>-->
+        </dependency>
+
+        <dependency>
+            <groupId>info.cqframework</groupId>
+            <artifactId>elm-jaxb</artifactId>
+            <version>3.2.0</version>
+            <!--            <scope>system</scope>-->
+            <!--            <systemPath>${pom.basedir}/lib/elm-jaxb-3.2.0.jar</systemPath>-->
+        </dependency>
+
+        <dependency>
+            <groupId>com.ibm.icu</groupId>
+            <artifactId>icu4j</artifactId>
+            <version>69.1</version>
+            <!--            <scope>system</scope>-->
+            <!--            <systemPath>${pom.basedir}/lib/icu4j-69.1.jar</systemPath>-->
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>2.15.2</version>
+            <!--            <scope>system</scope>-->
+            <!--            <systemPath>${pom.basedir}/lib/jackson-annotations-2.15.2.jar</systemPath>-->
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>2.15.2</version>
+            <!--            <scope>system</scope>-->
+            <!--            <systemPath>${pom.basedir}/lib/jackson-core-2.15.2.jar</systemPath>-->
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.15.2</version>
+            <!--            <scope>system</scope>-->
+            <!--            <systemPath>${pom.basedir}/lib/jackson-databind-2.15.2.jar</systemPath>-->
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.module</groupId>
+            <artifactId>jackson-module-jaxb-annotations</artifactId>
+            <version>2.15.2</version>
+            <!--            <scope>system</scope>-->
+            <!--            <systemPath>${pom.basedir}/lib/jackson-module-jaxb-annotations-2.15.2.jar</systemPath>-->
+        </dependency>
+
+        <dependency>
+            <groupId>jakarta.activation</groupId>
+            <artifactId>jakarta.activation-api</artifactId>
+            <version>1.2.2</version>
+            <!--            <scope>system</scope>-->
+            <!--            <systemPath>${pom.basedir}/lib/jakarta.activation-api-1.2.2.jar</systemPath>-->
+        </dependency>
+
+        <dependency>
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
+            <version>2.3.3</version>
+            <!--            <scope>system</scope>-->
+            <!--            <systemPath>${pom.basedir}/lib/jakarta.xml.bind-api-2.3.3.jar</systemPath>-->
+        </dependency>
+
+        <dependency>
+            <groupId>org.glassfish</groupId>
+            <artifactId>javax.json</artifactId>
+            <version>1.0.4</version>
+            <!--            <scope>system</scope>-->
+            <!--            <systemPath>${pom.basedir}/lib/javax.json-1.0.4.jar</systemPath>-->
+        </dependency>
+
+        <dependency>
+            <groupId>org.jvnet.jaxb2_commons</groupId>
+            <artifactId>jaxb2-basics-runtime</artifactId>
+            <version>0.13.1</version>
+            <!--            <scope>system</scope>-->
+            <!--            <systemPath>${pom.basedir}/lib/jaxb2-basics-runtime-0.13.1.jar</systemPath>-->
+        </dependency>
+
+        <dependency>
+            <groupId>net.sf.jopt-simple</groupId>
+            <artifactId>jopt-simple</artifactId>
+            <version>4.7</version>
+            <!--            <scope>system</scope>-->
+            <!--            <systemPath>${pom.basedir}/lib/jopt-simple-4.7.jar</systemPath>-->
+        </dependency>
+
+
+        <dependency>
+            <groupId>info.cqframework</groupId>
+            <artifactId>model</artifactId>
+            <version>3.2.0</version>
+            <!--            <scope>system</scope>-->
+            <!--            <systemPath>${pom.basedir}/lib/model-3.2.0.jar</systemPath>-->
+        </dependency>
+
+        <dependency>
+            <groupId>info.cqframework</groupId>
+            <artifactId>model-jaxb</artifactId>
+            <version>3.2.0</version>
+            <!--            <scope>system</scope>-->
+            <!--            <systemPath>${pom.basedir}/lib/model-3.2.0.jar</systemPath>-->
+        </dependency>
+
+        <dependency>
+            <groupId>org.abego.treelayout</groupId>
+            <artifactId>org.abego.treelayout.core</artifactId>
+            <version>1.0.3</version>
+            <!--            <scope>system</scope>-->
+            <!--            <systemPath>${pom.basedir}/lib/org.abego.treelayout.core-1.0.3.jar</systemPath>-->
+        </dependency>
+
+        <dependency>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>org.eclipse.persistence.asm</artifactId>
+            <version>2.7.7</version>
+            <!--            <scope>system</scope>-->
+            <!--            <systemPath>${pom.basedir}/lib/org.eclipse.persistence.asm-2.7.7.jar</systemPath>-->
+        </dependency>
+
+        <dependency>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>org.eclipse.persistence.core</artifactId>
+            <version>2.7.7</version>
+            <!--            <scope>system</scope>-->
+            <!--            <systemPath>${pom.basedir}/lib/org.eclipse.persistence.core-2.7.7.jar</systemPath>-->
+        </dependency>
+
+        <dependency>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>org.eclipse.persistence.moxy</artifactId>
+            <version>2.7.7</version>
+            <!--            <scope>system</scope>-->
+            <!--            <systemPath>${pom.basedir}/lib/org.eclipse.persistence.moxy-2.7.7.jar</systemPath>-->
+        </dependency>
+
+
+        <dependency>
+            <groupId>info.cqframework</groupId>
+            <artifactId>qdm</artifactId>
+            <version>3.2.0</version>
+            <!--            <scope>system</scope>-->
+            <!--            <systemPath>${pom.basedir}/lib/qdm-3.2.0.jar</systemPath>-->
+        </dependency>
+
+        <dependency>
+            <groupId>info.cqframework</groupId>
+            <artifactId>quick</artifactId>
+            <version>3.2.0</version>
+            <!--            <scope>system</scope>-->
+            <!--            <systemPath>${pom.basedir}/lib/quick-3.2.0.jar</systemPath>-->
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.36</version>
+            <!--            <scope>system</scope>-->
+            <!--            <systemPath>${pom.basedir}/lib/slf4j-api-1.7.36.jar</systemPath>-->
+        </dependency>
+
+        <dependency>
+            <groupId>org.antlr</groupId>
+            <artifactId>ST4</artifactId>
+            <version>4.3.3</version>
+            <!--            <scope>system</scope>-->
+            <!--            <systemPath>${pom.basedir}/lib/ST4-4.3.3.jar</systemPath>-->
+        </dependency>
+
+        <dependency>
+            <groupId>org.fhir</groupId>
+            <artifactId>ucum</artifactId>
+            <version>1.0.3</version>
+            <!--            <scope>system</scope>-->
+            <!--            <systemPath>${pom.basedir}/lib/ucum-1.0.3.jar</systemPath>-->
+        </dependency>
+
+        <!--        <dependency>-->
+        <!--            <groupId>org.fhir</groupId>-->
+        <!--            <artifactId>ucum</artifactId>-->
+        <!--            <version>1.0.8</version>-->
+        <!--            <scope>system</scope>-->
+        <!--            <systemPath>${pom.basedir}/lib/ucum-1.0.8.jar</systemPath>-->
+        <!--        </dependency>-->
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.2.2</version>
+                <configuration>
+                    <warSourceDirectory>src/main/webapp</warSourceDirectory>
+                    <warName>ROOT</warName>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <webResources>
+                        <resource>
+                            <directory>${project.basedir}/lib</directory>
+                            <targetPath>WEB-INF/lib</targetPath>
+                            <includes>
+                                <include>*.jar</include>
+                            </includes>
+                        </resource>
+                    </webResources>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
+
+</project>

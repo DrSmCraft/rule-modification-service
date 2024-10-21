@@ -1,0 +1,11 @@
+version: '2'
+services:
+  rule-modification-server:
+    container_name: rule-modification-server
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: rule-modification-service:latest
+    ports:
+      - 8080:8080
+

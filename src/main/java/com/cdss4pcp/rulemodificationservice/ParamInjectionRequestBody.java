@@ -1,0 +1,49 @@
+package com.cdss4pcp.rulemodificationservice;
+
+
+import com.cdss4pcp.rulemodificationservice.parambuilder.ParamDescription;
+import com.cdss4pcp.rulemodificationservice.util.CqlRule;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.HashMap;
+
+
+public class ParamInjectionRequestBody {
+
+    @JsonProperty("params")
+    private HashMap<String, ParamDescription> params;
+    @JsonProperty("rule")
+    private CqlRule rule;
+    @JsonProperty("libraries")
+    private HashMap<String, CqlRule> libraries;
+
+    public ParamInjectionRequestBody(HashMap<String, ParamDescription> params, CqlRule rule, HashMap<String, CqlRule> libraries) {
+        this.params = params;
+        this.rule = rule;
+        this.libraries = libraries;
+    }
+
+    public HashMap<String, ParamDescription> getParams() {
+        return params;
+    }
+
+    public void setParams(HashMap<String, ParamDescription> params) {
+        this.params = params;
+    }
+
+    public CqlRule getRule() {
+        return rule;
+    }
+
+    public void setRule(CqlRule rule) {
+        this.rule = rule;
+    }
+
+    public HashMap<String, CqlRule> getLibraries() {
+        return libraries;
+    }
+
+    public void setLibraries(HashMap<String, CqlRule> libraries) {
+        this.libraries = libraries;
+    }
+}
