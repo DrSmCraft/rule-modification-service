@@ -52,7 +52,7 @@ public class ParamInjectorController {
      * @return A new ParamInjectionRequestBody object with the injected parameters
      * @throws UnsupportedEncodingException If an unsupported encoding is encountered during the injection process
      */
-    @PostMapping(path = "${rule-modification-service.injectUrl}", produces = "application/json")
+    @RequestMapping(method = {RequestMethod.POST, RequestMethod.OPTIONS}, path = "${rule-modification-service.injectUrl}", produces = "application/json")
     public ParamInjectionRequestBody inject(@RequestBody ParamInjectionRequestBody body) throws UnsupportedEncodingException {
         CqlRule rule = body.getRule();
         checkParamInjectionRequestBody(body);
@@ -94,7 +94,7 @@ public class ParamInjectorController {
      * @return The translated CQL rule in JSON format
      * @throws UnsupportedEncodingException If an unsupported encoding is encountered
      */
-    @PostMapping(path = "/api/translate", produces = "application/json")
+    @RequestMapping(method = {RequestMethod.POST, RequestMethod.OPTIONS}, path = "${rule-modification-service.translateUrl}", produces = "application/json")
     String translate(@RequestBody ParamInjectionRequestBody body, @RequestParam(required = false) Boolean disableDefaultModelInfoLoad, @RequestParam(required = false) Boolean verify, @RequestParam(required = false) Boolean optimization, @RequestParam(required = false) Boolean annotations, @RequestParam(required = false) Boolean locators, @RequestParam(required = false) Boolean resultTypes, @RequestParam(required = false) Boolean detailedErrors, @RequestParam(required = false) CqlCompilerException.ErrorSeverity errorLevel, @RequestParam(required = false) Boolean disableListTraversal, @RequestParam(required = false) Boolean disableListDemotion, @RequestParam(required = false) Boolean disableListPromotion, @RequestParam(required = false) Boolean enableIntervalDemotion, @RequestParam(required = false) Boolean enableIntervalPromotion, @RequestParam(required = false) Boolean disableMethodInvocation, @RequestParam(required = false) Boolean requireFromKeyword, @RequestParam(required = false) Boolean strict, @RequestParam(required = false) Boolean validateUnits, @RequestParam(required = false) LibraryBuilder.SignatureLevel signatures, @RequestParam(required = false) String compatibilityLevel) throws UnsupportedEncodingException {
         checkParamInjectionRequestBody(body);
         CqlCompilerOptions options;
@@ -187,7 +187,7 @@ public class ParamInjectorController {
      * @param enableIntervalDemotion      Flag to enable interval demotion
      * @param enableIntervalPromotion     Flag to enable interval promotion
      * @param disableMethodInvocation     Flag to disable method invocation
-     * @param requireFromKeyword          Flag to require 'from' keyword
+     * @param requireFromKeyword          Flag to require 'from' keyword in queries
      * @param strict                      Flag to enforce strict type checking
      * @param validateUnits               Flag to validate units
      * @param signatures                  The signature level for library builder
@@ -195,7 +195,7 @@ public class ParamInjectorController {
      * @return The translated CQL rule in JSON format
      * @throws UnsupportedEncodingException If an unsupported encoding is encountered
      */
-    @PostMapping(path = "/api/injectAndTranslate", produces = "application/json")
+    @RequestMapping(method = {RequestMethod.POST, RequestMethod.OPTIONS}, path = "${rule-modification-service.injectTranslateUrl}", produces = "application/json")
     String injectAndTranslate(@RequestBody ParamInjectionRequestBody body, @RequestParam(required = false) Boolean disableDefaultModelInfoLoad, @RequestParam(required = false) Boolean verify, @RequestParam(required = false) Boolean optimization, @RequestParam(required = false) Boolean annotations, @RequestParam(required = false) Boolean locators, @RequestParam(required = false) Boolean resultTypes, @RequestParam(required = false) Boolean detailedErrors, @RequestParam(required = false) CqlCompilerException.ErrorSeverity errorLevel, @RequestParam(required = false) Boolean disableListTraversal, @RequestParam(required = false) Boolean disableListDemotion, @RequestParam(required = false) Boolean disableListPromotion, @RequestParam(required = false) Boolean enableIntervalDemotion, @RequestParam(required = false) Boolean enableIntervalPromotion, @RequestParam(required = false) Boolean disableMethodInvocation, @RequestParam(required = false) Boolean requireFromKeyword, @RequestParam(required = false) Boolean strict, @RequestParam(required = false) Boolean validateUnits, @RequestParam(required = false) LibraryBuilder.SignatureLevel signatures, @RequestParam(required = false) String compatibilityLevel) throws UnsupportedEncodingException {
         checkParamInjectionRequestBody(body);
         ParamInjectionRequestBody injectedRequest = inject(body);

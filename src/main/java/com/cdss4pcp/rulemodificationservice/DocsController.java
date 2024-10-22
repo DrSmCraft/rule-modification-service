@@ -12,4 +12,14 @@ public class DocsController {
     public String home() {
         return "home";
     }
+
+    @RequestMapping(path = "/docs", method = {RequestMethod.GET})
+    public String docs() {
+        return "docs";
+    }
+
+//    @RequestMapping(path = "/docs/rule_modification_service-openapi.yaml", method = {RequestMethod.GET})
+//    public String docYaml() {
+//        return "rule_modification_service-openapi.yaml";
+//    }
 }

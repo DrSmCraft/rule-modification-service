@@ -14,6 +14,11 @@
       "name": "rule-modification-service.injectTranslateUrl",
       "type": "java.lang.String",
       "description": "Description for rule-modification-service.injectTranslateUrl."
+    },
+    {
+      "name": "rule-modification-service.docsEnabled",
+      "type": "java.lang.Boolean",
+      "description": "Flag to enable/disable REST API documentation."
     }
   ]
 }
