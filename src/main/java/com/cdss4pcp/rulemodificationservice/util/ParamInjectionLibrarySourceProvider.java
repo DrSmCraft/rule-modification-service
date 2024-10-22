@@ -8,6 +8,11 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
+/**
+ * Provides a custom implementation of LibrarySourceProvider interface for injecting parameterized CQL rules.
+ * Retrieves the CQL content of a rule based on the given VersionedIdentifier.
+ * If the rule is not found or the version does not match, returns null.
+ */
 public class ParamInjectionLibrarySourceProvider implements LibrarySourceProvider {
 
     private Map<String, CqlRule> encodedLibraries;
@@ -16,6 +21,13 @@ public class ParamInjectionLibrarySourceProvider implements LibrarySourceProvide
         this.encodedLibraries = encodedLibraries;
     }
 
+    /**
+     * Retrieves the CQL content of a specific rule based on the provided VersionedIdentifier.
+     *
+     * @param versionedIdentifier The unique identifier for the rule to retrieve.
+     * @return An InputStream containing the CQL content of the rule, or null if the rule is not found or the version does not match.
+     * @throws RuntimeException if there is an issue decoding the CQL content.
+     */
     @Override
     public InputStream getLibrarySource(VersionedIdentifier versionedIdentifier) {
         CqlRule rule = encodedLibraries.get(versionedIdentifier.getId());
@@ -26,11 +38,13 @@ public class ParamInjectionLibrarySourceProvider implements LibrarySourceProvide
             return null;
         }
         String libraryCql = null;
-        try {
-            libraryCql = ParamInjectionUtil.decodeCql(rule.getEncodedCql());
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
-        }
+//        try {
+//            libraryCql = ParamInjectionUtil.decodeCql(rule.getEncodedCql());
+//        }
+//        catch (UnsupportedEncodingException e) {
+//            throw new RuntimeException(e);
+//        }
+        libraryCql = ParamInjectionUtil.decodeCql(rule.getEncodedCql());
         return new ByteArrayInputStream(libraryCql.getBytes());
 
     }

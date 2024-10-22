@@ -8,7 +8,11 @@ import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
+/**
+ * Service class for injecting parameters into a given CQL rule based on their types.
+ * Initializes param builders for Integer and String types.
+ *
+ */
 public class ParamInjectorService {
 
     HashMap<String, IParamBuilder> paramBuilders = new HashMap<>();
@@ -25,6 +29,14 @@ public class ParamInjectorService {
         paramBuilders.put("String", new ParamStringBuilder());
     }
 
+    /**
+     * Injects parameters into the given CQL rule based on their types.
+     *
+     * @param params a HashMap containing parameter descriptions
+     * @param cql the CQL rule to inject parameters into
+     * @return the modified CQL rule after parameter injection as a String
+     * @throws RuntimeException if an unrecognized parameter type is encountered
+     */
     public String injectParameters(HashMap<String, ParamDescription> params, String cql) {
         if (params == null) {
             return cql;

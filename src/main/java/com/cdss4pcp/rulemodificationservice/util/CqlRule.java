@@ -5,6 +5,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hl7.elm.r1.VersionedIdentifier;
 
 
+/**
+ * Represents a CQL rule with an ID, version, and encoded CQL content.
+ * Provides methods to retrieve the ID, version, and encoded CQL content.
+ * Also includes a method to get the versioned identifier of the rule.
+ */
 public class CqlRule {
     @JsonProperty("id")
     String id;
@@ -31,6 +36,11 @@ public class CqlRule {
         return encodedCql;
     }
 
+    /**
+     * Retrieves the versioned identifier of the rule.
+     *
+     * @return The versioned identifier containing the ID and version of the rule.
+     */
     @JsonIgnore
     public VersionedIdentifier getVersionedIdentifier() {
         VersionedIdentifier identifier = new VersionedIdentifier();

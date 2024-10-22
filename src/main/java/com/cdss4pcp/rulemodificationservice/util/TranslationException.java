@@ -6,6 +6,10 @@ import org.cqframework.cql.elm.tracking.TrackBack;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents a translation error with details such as message, start and end line numbers, start and end character positions,
+ * library ID, library version, and library system.
+ */
 class TranslationError {
     private String message;
     private int startLine;
@@ -94,13 +98,21 @@ class TranslationError {
     }
 }
 
+
+/**
+ * Represents a custom RuntimeException for CQL translation errors, containing a list of compilation errors.
+ */
 public class TranslationException extends RuntimeException {
     List<CqlCompilerException> compilationErrors;
 
+    /**
+     * Initializes a new TranslationException with the provided list of compilation errors.
+     *
+     * @param compilationErrors the list of compilation errors causing the exception
+     */
     public TranslationException(List<CqlCompilerException> compilationErrors) {
         super("CQL Translation error");
         this.compilationErrors = compilationErrors;
-
     }
 
     public List<CqlCompilerException> compilationErrors() {

@@ -7,7 +7,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.HashMap;
 
-
+/**
+ * Represents a request body for injecting parameters, a rule, and libraries into the system.
+ * Contains methods to get and set the parameters, rule, and libraries.
+ */
 public class ParamInjectionRequestBody {
 
     @JsonProperty("params")
