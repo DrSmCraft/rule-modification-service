@@ -48,7 +48,7 @@ public class ParamInjectorService {
 
             if (value.type.equalsIgnoreCase("Integer")) {
                 Pattern pattern = paramBuilders.get("Integer").buildPattern(param);
-                String replacement = paramBuilders.get("Integer").buildReplacement(param, value.value);
+                String replacement = paramBuilders.get("Integer").buildReplacement(param, Integer.parseInt(value.value + ""));
                 Matcher matcher = pattern.matcher(newCQL);
                 newCQL = matcher.replaceAll(replacement);
             } else if (value.type.equalsIgnoreCase("String")) {
