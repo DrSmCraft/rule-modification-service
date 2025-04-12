@@ -86,4 +86,62 @@ public class ParamInjectorService {
 
 
     }
+
+
+    public String injectNewLibraryNameAndVersion(String newLibraryName, String newLibraryVersion, String cql) {
+        if (newLibraryName == null && newLibraryVersion == null) {
+            return cql;
+        }
+        final Pattern libraryNameVersionPattern = Pattern.compile("[\s]*library[\s]*(\')?([A-Za-z]|'_')([A-Za-z0-9]|'_')*(\')?[\s]*version[\s]*(\')?(.*)(\')?");
+        final Pattern libraryNamePattern = Pattern.compile("[\s]*library[\s]*(\')?([A-Za-z]|'_')([A-Za-z0-9]|'_')*(\')?");
+
+        String newCQL;
+
+        if (newLibraryName != null) {
+            newLibraryName = newLibraryName.trim();
+            Pattern namePattern = Pattern.compile("^(\')?([A-Za-z]|'_')([A-Za-z0-9]|'_')*(\')?$");
+            Matcher nameMatcher = namePattern.matcher(newLibraryName);
+            boolean nameValid = nameMatcher.find();
+            int oldLibraryNameLength = newLibraryName.length();
+            newLibraryName = newLibraryName.replace("'", "");
+
+            if (!nameValid || (oldLibraryNameLength - newLibraryName.length() != 0 && oldLibraryNameLength - newLibraryName.length() != 2)) {
+                throw new IllegalArgumentException("Invalid library name: " + newLibraryName);
+            }
+        }
+
+
+        if (newLibraryVersion != null) {
+            newLibraryVersion = newLibraryVersion.trim();
+            Pattern versionPattern = Pattern.compile("^(\')?(.*)(\')?$");
+            Matcher versionMatcher = versionPattern.matcher(newLibraryVersion);
+            boolean versionValid = versionMatcher.find();
+            int oldVersionLength = newLibraryVersion.length();
+            newLibraryVersion = newLibraryVersion.replace("'", "");
+
+            if (!versionValid || (oldVersionLength - newLibraryVersion.length() != 0 && oldVersionLength - newLibraryVersion.length() != 2)) {
+                throw new IllegalArgumentException("Invalid version: " + newLibraryVersion);
+            }
+        }
+
+
+        Matcher matcher1 = libraryNameVersionPattern.matcher(cql);
+        Matcher matcher2 = libraryNamePattern.matcher(cql);
+        boolean foundNameAndVersion = matcher1.find();
+        boolean foundName = matcher2.find();
+
+        if (foundNameAndVersion) {
+            newCQL = matcher1.replaceAll(String.format("library '%s' version '%s'", newLibraryName, newLibraryVersion));
+        } else if (foundName) {
+            newCQL = matcher2.replaceAll(String.format("library '%s'", newLibraryName));
+        } else {
+            newCQL = cql;
+        }
+
+
+        return newCQL;
+
+
+    }
+
 }

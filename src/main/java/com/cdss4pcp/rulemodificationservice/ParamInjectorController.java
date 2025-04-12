@@ -26,19 +26,16 @@ import java.util.Map;
 @RestController()
 public class ParamInjectorController {
 
+    @Autowired
+    protected ParamInjectorService injectorService = new ParamInjectorService();
+    protected ModelManager modelManager;
     @Value("${rule-modification-service.injectUrl}")
     private String injectUrl;
     @Value("${rule-modification-service.translateUrl}")
     private String translateUrl;
     @Value("${rule-modification-service.injectTranslateUrl}")
     private String injectTranslateUrl;
-
     private Logger logger = LoggerFactory.getLogger(ParamInjectorController.class);
-
-    @Autowired
-    protected ParamInjectorService injectorService = new ParamInjectorService();
-
-    protected ModelManager modelManager;
 
     ParamInjectorController() {
         modelManager = new ModelManager();
@@ -54,17 +51,18 @@ public class ParamInjectorController {
      */
     @RequestMapping(method = {RequestMethod.POST, RequestMethod.OPTIONS}, path = "${rule-modification-service.injectUrl}", produces = "application/json")
     public ParamInjectionRequestBody inject(@RequestBody ParamInjectionRequestBody body) throws UnsupportedEncodingException {
+        logger.info(body.toString());
         CqlRule rule = body.getRule();
         checkParamInjectionRequestBody(body);
 
         String decodedCql = ParamInjectionUtil.decodeCql(rule.getEncodedCql());
         String newCql = injectorService.injectParameters(body.getParams(), decodedCql);
+        newCql = injectorService.injectNewLibraryNameAndVersion(body.getNewLibraryName(),body.getNewLibraryVersion(), newCql);
 
         String encodedCql = ParamInjectionUtil.encodeCql(newCql);
 
 
         return new ParamInjectionRequestBody(body.getParams(), new CqlRule(rule.getId(), rule.getVersion(), encodedCql), body.getLibraries());
-
     }
 
 
@@ -96,6 +94,7 @@ public class ParamInjectorController {
      */
     @RequestMapping(method = {RequestMethod.POST, RequestMethod.OPTIONS}, path = "${rule-modification-service.translateUrl}", produces = "application/json")
     String translate(@RequestBody ParamInjectionRequestBody body, @RequestParam(required = false) Boolean disableDefaultModelInfoLoad, @RequestParam(required = false) Boolean verify, @RequestParam(required = false) Boolean optimization, @RequestParam(required = false) Boolean annotations, @RequestParam(required = false) Boolean locators, @RequestParam(required = false) Boolean resultTypes, @RequestParam(required = false) Boolean detailedErrors, @RequestParam(required = false) CqlCompilerException.ErrorSeverity errorLevel, @RequestParam(required = false) Boolean disableListTraversal, @RequestParam(required = false) Boolean disableListDemotion, @RequestParam(required = false) Boolean disableListPromotion, @RequestParam(required = false) Boolean enableIntervalDemotion, @RequestParam(required = false) Boolean enableIntervalPromotion, @RequestParam(required = false) Boolean disableMethodInvocation, @RequestParam(required = false) Boolean requireFromKeyword, @RequestParam(required = false) Boolean strict, @RequestParam(required = false) Boolean validateUnits, @RequestParam(required = false) LibraryBuilder.SignatureLevel signatures, @RequestParam(required = false) String compatibilityLevel) throws UnsupportedEncodingException {
+        logger.debug(body.toString());
         checkParamInjectionRequestBody(body);
         CqlCompilerOptions options;
         boolean noOptionsGiven = optimization == null && annotations == null && locators == null && resultTypes == null && verify == null && detailedErrors == null && errorLevel == null && disableListTraversal == null && disableListDemotion == null && disableListPromotion == null && enableIntervalDemotion == null && enableIntervalPromotion == null && disableMethodInvocation == null && requireFromKeyword == null && validateUnits == null && disableDefaultModelInfoLoad == null && compatibilityLevel == null && strict == null;

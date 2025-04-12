@@ -11,6 +11,8 @@ import java.util.HashMap;
  * Represents a request body for injecting parameters, a rule, and libraries into the system.
  * Contains methods to get and set the parameters, rule, and libraries.
  */
+
+
 public class ParamInjectionRequestBody {
 
     @JsonProperty("params")
@@ -19,6 +21,12 @@ public class ParamInjectionRequestBody {
     private CqlRule rule;
     @JsonProperty("libraries")
     private HashMap<String, CqlRule> libraries;
+
+    @JsonProperty(value = "newLibraryName", required = false)
+    private String newLibraryName;
+
+    @JsonProperty(value = "newLibraryVersion", required = false)
+    private String newLibraryVersion;
 
     public ParamInjectionRequestBody(HashMap<String, ParamDescription> params, CqlRule rule, HashMap<String, CqlRule> libraries) {
         this.params = params;
@@ -48,5 +56,30 @@ public class ParamInjectionRequestBody {
 
     public void setLibraries(HashMap<String, CqlRule> libraries) {
         this.libraries = libraries;
+    }
+
+    public String getNewLibraryName() {
+        return newLibraryName;
+    }
+
+    public void setNewLibraryName(String newLibraryName) {
+        this.newLibraryName = newLibraryName;
+    }
+
+    public String getNewLibraryVersion() {
+        return newLibraryVersion;
+    }
+
+    public void setNewLibraryVersion(String newLibraryVersion) {
+        this.newLibraryVersion = newLibraryVersion;
+    }
+
+    @Override
+    public String toString() {
+        return "ParamInjectionRequestBody{" +
+                "params=" + params +
+                ", rule=" + rule +
+                ", libraries=" + libraries +
+                '}';
     }
 }
