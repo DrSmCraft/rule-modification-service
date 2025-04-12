@@ -33,8 +33,8 @@ public class ParamInjectorServiceTest {
     @Test
     public void test_replace_library_name() {
         ParamInjectorService service = new ParamInjectorService();
-        String cql = "library 'test1'";
-        String expectedCQL = "library 'test2'";
+        String cql = "library \"test1\"";
+        String expectedCQL = "library \"test2\"";
         String result = service.injectNewLibraryNameAndVersion("test2", null, cql);
         assertEquals(expectedCQL, result);
 
@@ -44,7 +44,7 @@ public class ParamInjectorServiceTest {
     public void test_replace_library_name_no_quotes() {
         ParamInjectorService service = new ParamInjectorService();
         String cql = "library test1";
-        String expectedCQL = "library 'test2'";
+        String expectedCQL = "library \"test2\"";
         String result = service.injectNewLibraryNameAndVersion("test2", null, cql);
         assertEquals(expectedCQL, result);
 
@@ -54,8 +54,8 @@ public class ParamInjectorServiceTest {
     public void test_replace_library_name_too_many_quotes() {
         ParamInjectorService service = new ParamInjectorService();
         String cql = "library test1";
-        String expectedCQL = "library 'test2'";
-        String result = service.injectNewLibraryNameAndVersion("'test2'", null, cql);
+        String expectedCQL = "library \"test2\"";
+        String result = service.injectNewLibraryNameAndVersion("\"test2\"", null, cql);
         assertEquals(expectedCQL, result);
 
     }
@@ -63,8 +63,8 @@ public class ParamInjectorServiceTest {
     @Test
     public void test_replace_library_name_and_version() {
         ParamInjectorService service = new ParamInjectorService();
-        String cql = "library 'test1' version '1.0.0'";
-        String expectedCQL = "library 'test2' version '2.0.0'";
+        String cql = "library \"test1\" version '1.0.0'";
+        String expectedCQL = "library \"test2\" version '2.0.0'";
         String result = service.injectNewLibraryNameAndVersion("test2", "2.0.0", cql);
         assertEquals(expectedCQL, result);
 
@@ -73,9 +73,9 @@ public class ParamInjectorServiceTest {
     @Test
     public void test_replace_library_name_and_version_too_many_quotes() {
         ParamInjectorService service = new ParamInjectorService();
-        String cql = "library 'test1' version '1.0.0'";
-        String expectedCQL = "library 'test2' version '2.0.0'";
-        String result = service.injectNewLibraryNameAndVersion("'test2'", "'2.0.0'", cql);
+        String cql = "library \"test1\" version '1.0.0'";
+        String expectedCQL = "library \"test2\" version '2.0.0'";
+        String result = service.injectNewLibraryNameAndVersion("\"test2\"", "'2.0.0'", cql);
         assertEquals(expectedCQL, result);
 
     }
@@ -83,8 +83,8 @@ public class ParamInjectorServiceTest {
     @Test
     public void test_replace_library_name_and_version_no_quote() {
         ParamInjectorService service = new ParamInjectorService();
-        String cql = "library 'test1' version 1.0.0";
-        String expectedCQL = "library 'test2' version '2.0.0'";
+        String cql = "library \"test1\" version 1.0.0";
+        String expectedCQL = "library \"test2\" version '2.0.0'";
         String result = service.injectNewLibraryNameAndVersion("test2", "2.0.0", cql);
         assertEquals(expectedCQL, result);
 
@@ -92,11 +92,31 @@ public class ParamInjectorServiceTest {
 
 
     @Test
-    public void test_replace_library_name_and_version_null() {
+    public void test_replace_library_name_null_and_version_null() {
         ParamInjectorService service = new ParamInjectorService();
-        String cql = "library 'test1' version '1.0.0'";
+        String cql = "library \"test1\" version '1.0.0'";
         String result = service.injectNewLibraryNameAndVersion(null, null, cql);
         assertEquals(cql, result);
+
+    }
+
+    @Test
+    public void test_replace_library_name_null_and_version() {
+        ParamInjectorService service = new ParamInjectorService();
+        String cql = "library \"test1\" version '1.0.0'";
+        String expectedCQL = "library \"test1\" version '2.0.0'";
+        String result = service.injectNewLibraryNameAndVersion(null, "2.0.0", cql);
+        assertEquals(expectedCQL, result);
+
+    }
+
+    @Test
+    public void test_replace_library_name_and_version_null() {
+        ParamInjectorService service = new ParamInjectorService();
+        String cql = "library \"test1\" version '1.0.0'";
+        String expectedCQL = "library \"test2\" version '1.0.0'";
+        String result = service.injectNewLibraryNameAndVersion("test2", null, cql);
+        assertEquals(expectedCQL, result);
 
     }
 }

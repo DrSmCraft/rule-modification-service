@@ -92,18 +92,44 @@ public class ParamInjectorService {
         if (newLibraryName == null && newLibraryVersion == null) {
             return cql;
         }
-        final Pattern libraryNameVersionPattern = Pattern.compile("[\s]*library[\s]*(\')?([A-Za-z]|'_')([A-Za-z0-9]|'_')*(\')?[\s]*version[\s]*(\')?(.*)(\')?");
-        final Pattern libraryNamePattern = Pattern.compile("[\s]*library[\s]*(\')?([A-Za-z]|'_')([A-Za-z0-9]|'_')*(\')?");
+        final Pattern libraryNameVersionPattern = Pattern.compile("[\s]*library[\s]*(\")?([A-Za-z]|'_')([A-Za-z0-9]|'_')*(\")?[\s]*version[\s]*(\')?(.*)(\')?");
+        final Pattern libraryNamePattern = Pattern.compile("[\s]*library[\s]*(\")?([A-Za-z]|'_')([A-Za-z0-9]|'_')*(\")?");
+
+        String originalLibraryName = null;
+        String originalLibraryVersion = null;
+        // Parse original library name and version
+        Matcher matcher1 = libraryNameVersionPattern.matcher(cql);
+        Matcher matcher2 = libraryNamePattern.matcher(cql);
+        boolean foundNameAndVersion = matcher1.find();
+        boolean foundName = matcher2.find();
+        if (foundNameAndVersion) {
+            String nameGroup = matcher2.group();
+            nameGroup = nameGroup.trim();
+            int last = nameGroup.lastIndexOf(" ");
+            originalLibraryName = nameGroup.substring(last + 1).replace("'", "").replace("\"", "");
+
+            String entireGroup = matcher1.group();
+            String versionGroup = entireGroup.replace(nameGroup, "").trim();
+            last = versionGroup.lastIndexOf(" ");
+            originalLibraryVersion = versionGroup.substring(last + 1).replace("'", "").replace("\"", "");
+        } else if (foundName) {
+            String nameGroup = matcher2.group();
+            nameGroup = nameGroup.trim();
+            int last = nameGroup.lastIndexOf(" ");
+            originalLibraryName = nameGroup.substring(last + 1).replace("'", "").replace("\"", "");
+
+        }
+
 
         String newCQL;
 
         if (newLibraryName != null) {
             newLibraryName = newLibraryName.trim();
-            Pattern namePattern = Pattern.compile("^(\')?([A-Za-z]|'_')([A-Za-z0-9]|'_')*(\')?$");
+            Pattern namePattern = Pattern.compile("^(\")?([A-Za-z]|'_')([A-Za-z0-9]|'_')*(\")?$");
             Matcher nameMatcher = namePattern.matcher(newLibraryName);
             boolean nameValid = nameMatcher.find();
             int oldLibraryNameLength = newLibraryName.length();
-            newLibraryName = newLibraryName.replace("'", "");
+            newLibraryName = newLibraryName.replace("\"", "");
 
             if (!nameValid || (oldLibraryNameLength - newLibraryName.length() != 0 && oldLibraryNameLength - newLibraryName.length() != 2)) {
                 throw new IllegalArgumentException("Invalid library name: " + newLibraryName);
@@ -125,15 +151,25 @@ public class ParamInjectorService {
         }
 
 
-        Matcher matcher1 = libraryNameVersionPattern.matcher(cql);
-        Matcher matcher2 = libraryNamePattern.matcher(cql);
-        boolean foundNameAndVersion = matcher1.find();
-        boolean foundName = matcher2.find();
+        matcher1 = libraryNameVersionPattern.matcher(cql);
+        matcher2 = libraryNamePattern.matcher(cql);
+        foundNameAndVersion = matcher1.find();
+        foundName = matcher2.find();
+        String nameGroup = matcher2.group();
 
         if (foundNameAndVersion) {
-            newCQL = matcher1.replaceAll(String.format("library '%s' version '%s'", newLibraryName, newLibraryVersion));
+            if (newLibraryName == null) {
+                newLibraryName = originalLibraryName;
+            }
+            if (newLibraryVersion == null) {
+                newLibraryVersion = originalLibraryVersion;
+            }
+            newCQL = matcher1.replaceAll(String.format("library \"%s\" version '%s'", newLibraryName, newLibraryVersion));
         } else if (foundName) {
-            newCQL = matcher2.replaceAll(String.format("library '%s'", newLibraryName));
+            if (newLibraryName == null) {
+                newLibraryName = originalLibraryName;
+            }
+            newCQL = matcher2.replaceAll(String.format("library \"%s\"", newLibraryName));
         } else {
             newCQL = cql;
         }
