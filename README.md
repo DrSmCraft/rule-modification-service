@@ -111,4 +111,5 @@ See the Swagger UI OpenAPI documention at
             }
             return newCQL;
            }
-               ``` 
+               ```
+3. Modify the library name and library version of CQL to new requested values

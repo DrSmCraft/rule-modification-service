@@ -360,6 +360,10 @@ components:
   schemas:
     CqlRule:
       type: "object"
+      required:
+        - id
+        - version
+        - content
       properties:
         id:
           type: "string"
@@ -372,8 +376,12 @@ components:
           description: Base64 encoded CQL rule
 
 
+
     ParamInjectionRequestBody:
       type: "object"
+      required:
+        - params
+        - rule
       properties:
         params:
           type: "object"
@@ -392,4 +400,8 @@ components:
           additionalProperties:
             type: "object"
             $ref: "#/components/schemas/CqlRule"
+        newLibraryName:
+          type: "string"
+        newLibraryVersion:
+          type: "string"
 

@@ -91,7 +91,15 @@ public class ParamInjectorService {
 
     }
 
-
+    /**
+     * Updates the library name and version in the provided CQL string.
+     *
+     * @param newLibraryName    the new library name to inject, or null to keep the original
+     * @param newLibraryVersion the new library version to inject, or null to keep the original
+     * @param cql               the CQL string to update
+     * @return the modified CQL string with the new library name and/or version
+     * @throws IllegalArgumentException if the new library name or version are an invalid format
+     */
     public String injectNewLibraryNameAndVersion(String newLibraryName, String newLibraryVersion, String cql) {
         if (newLibraryName == null && newLibraryVersion == null) {
             return cql;
