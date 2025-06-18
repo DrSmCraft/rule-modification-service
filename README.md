@@ -58,57 +58,57 @@ See the Swagger UI OpenAPI documention at
     * strict
     * validateUnits
     * signatures
-        * compatibilityLevel
-            2. Inject values into parameter expressions in CQL for the following data types:
-                * Boolean: found
-                  at [ParamBooleanBuilder.java](src/main/java/com/cdss4pcp/rulemodificationservice/parambuilder/ParamBooleanBuilder.java)
-                * String: found
-                  at [ParamStringBuilder.java](src/main/java/com/cdss4pcp/rulemodificationservice/parambuilder/ParamStringBuilder.java)
-                    * Integer: found
-                      at [ParamIntegerBuilder.java](src/main/java/com/cdss4pcp/rulemodificationservice/parambuilder/ParamIntegerBuilder.java)
-                        * More DataTypes can be added by:
-                            1. Adding a class for the datatype Param Builder and
-                               extending [IParamBuilder.java](src/main/java/com/cdss4pcp/rulemodificationservice/parambuilder/IParamBuilder.java)
-                            2. Implement `buildPattern(String param)` and `buildReplacement(String param, T value)`
-                            3. Register your new Param Builder
-                               in [ParamInjectorService.java](src/main/java/com/cdss4pcp/rulemodificationservice/parambuilder/ParamInjectorService.java).
-                               For example,
-                               ```java
-                               private void postConstruct() {
-                                 paramBuilders = new HashMap<>();
-                                 paramBuilders.put("Integer", new ParamIntegerBuilder());
-                                 paramBuilders.put("String", new ParamStringBuilder());
-                                 paramBuilders.put("Boolean", new ParamBooleanBuilder());
+    * compatibilityLevel
+2. Inject values into parameter expressions in CQL for the following data types:
+    * Boolean: found
+      at [ParamBooleanBuilder.java](src/main/java/com/cdss4pcp/rulemodificationservice/parambuilder/ParamBooleanBuilder.java)
+    * String: found
+      at [ParamStringBuilder.java](src/main/java/com/cdss4pcp/rulemodificationservice/parambuilder/ParamStringBuilder.java)
+    * Integer: found
+      at [ParamIntegerBuilder.java](src/main/java/com/cdss4pcp/rulemodificationservice/parambuilder/ParamIntegerBuilder.java)
+    * More DataTypes can be added by:
+        1. Adding a class for the datatype Param Builder and
+           extending [IParamBuilder.java](src/main/java/com/cdss4pcp/rulemodificationservice/parambuilder/IParamBuilder.java)
+        2. Implement `buildPattern(String param)` and `buildReplacement(String param, T value)`
+        3. Register your new Param Builder
+           in [ParamInjectorService.java](src/main/java/com/cdss4pcp/rulemodificationservice/parambuilder/ParamInjectorService.java).
+           For example,
+           ```java
+           private void postConstruct() {
+             paramBuilders = new HashMap<>();
+             paramBuilders.put("Integer", new ParamIntegerBuilder());
+             paramBuilders.put("String", new ParamStringBuilder());
+             paramBuilders.put("Boolean", new ParamBooleanBuilder());
                                
-                                 // Your new ParamBuilder for new Datatype
-                                 paramBuilders.put("YourDataType", new ParamYourDataTypeBuilder());
-                                 }
-                                 ```
-                            4. Add logic to process your datatype
-                               in [ParamInjectorService.java](src/main/java/com/cdss4pcp/rulemodificationservice/parambuilder/ParamInjectorService.java),
-                               by adding another clause in
-                               `String injectParameters(HashMap<String, ParamDescription> params, String cql)`. For
-                               example,
-                               ```java
-                                public String injectParameters(HashMap<String, ParamDescription> params, String cql) {
-                                    ...
+             // Your new ParamBuilder for new Datatype
+             paramBuilders.put("YourDataType", new ParamYourDataTypeBuilder());
+             }
+             ```
+        4. Add logic to process your datatype
+           in [ParamInjectorService.java](src/main/java/com/cdss4pcp/rulemodificationservice/parambuilder/ParamInjectorService.java),
+           by adding another clause in
+           `String injectParameters(HashMap<String, ParamDescription> params, String cql)`. For
+           example,
+           ```java
+            public String injectParameters(HashMap<String, ParamDescription> params, String cql) {
+                ...
                                
-                                    if (value.type.equalsIgnoreCase("Integer")) {
-                                        ...
-                                    } 
-                                    else if (value.type.equalsIgnoreCase("String")) {
-                                        ...
-                                    } 
-                                    else if (value.type.equalsIgnoreCase("Boolean")) {
-                                       ...
-                                    }
-                                    else if (value.type.equalsIgnoreCase("YouNewDataType")) { // Add this clause
-                                       // You logic for processing your datatype here
-                                    }
-                                    else {
-                                        throw new RuntimeException("Unrecognized type: " + value.type);
-                                    }
-                                }
-                                return newCQL;
-                               }
-                                   ``` 
+                if (value.type.equalsIgnoreCase("Integer")) {
+                    ...
+                } 
+                else if (value.type.equalsIgnoreCase("String")) {
+                    ...
+                } 
+                else if (value.type.equalsIgnoreCase("Boolean")) {
+                   ...
+                }
+                else if (value.type.equalsIgnoreCase("YouNewDataType")) { // Add this clause
+                   // You logic for processing your datatype here
+                }
+                else {
+                    throw new RuntimeException("Unrecognized type: " + value.type);
+                }
+            }
+            return newCQL;
+           }
+               ``` 
