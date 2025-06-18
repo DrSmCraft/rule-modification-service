@@ -38,12 +38,6 @@ public class ParamInjectionLibrarySourceProvider implements LibrarySourceProvide
             return null;
         }
         String libraryCql = null;
-//        try {
-//            libraryCql = ParamInjectionUtil.decodeCql(rule.getEncodedCql());
-//        }
-//        catch (UnsupportedEncodingException e) {
-//            throw new RuntimeException(e);
-//        }
         libraryCql = ParamInjectionUtil.decodeCql(rule.getEncodedCql());
         return new ByteArrayInputStream(libraryCql.getBytes());
 

@@ -16,7 +16,7 @@ class ParamIntegerBuilder implements IParamBuilder<Integer> {
      * then the input parameter in quotes, a colon, optional whitespace, and an optional negative sign followed by digits.
      * The matching is case-insensitive.
      *
-     * @param param the parameter to be included in the regex pattern
+     * @param param the parameter name to be included in the regex pattern
      * @return the compiled regex Pattern object
      */
     @Override

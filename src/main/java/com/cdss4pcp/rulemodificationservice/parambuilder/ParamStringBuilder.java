@@ -16,7 +16,7 @@ class ParamStringBuilder implements IParamBuilder<String> {
      * then the input parameter in quotes, a colon, optional whitespace, and a string delimited by single quotes.
      * The matching is case-insensitive.
      *
-     * @param param the parameter to be included in the regex pattern
+     * @param param the parameter name to be included in the regex pattern
      * @return the compiled regex Pattern object
      */
     @Override

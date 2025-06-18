@@ -56,7 +56,8 @@ public class ParamInjectorService {
                 String replacement = paramBuilders.get("Integer").buildReplacement(param, val);
                 Matcher matcher = pattern.matcher(newCQL);
                 newCQL = matcher.replaceAll(replacement);
-            } else if (value.type.equalsIgnoreCase("String")) {
+            }
+            else if (value.type.equalsIgnoreCase("String")) {
                 Pattern pattern = paramBuilders.get("String").buildPattern(param);
                 String val;
                 try {
@@ -67,7 +68,8 @@ public class ParamInjectorService {
                 String replacement = paramBuilders.get("String").buildReplacement(param, val);
                 Matcher matcher = pattern.matcher(newCQL);
                 newCQL = matcher.replaceAll(replacement);
-            } else if (value.type.equalsIgnoreCase("Boolean")) {
+            }
+            else if (value.type.equalsIgnoreCase("Boolean")) {
                 Pattern pattern = paramBuilders.get("Boolean").buildPattern(param);
                 Boolean val;
                 try {
@@ -78,7 +80,9 @@ public class ParamInjectorService {
                 String replacement = paramBuilders.get("Boolean").buildReplacement(param, val);
                 Matcher matcher = pattern.matcher(newCQL);
                 newCQL = matcher.replaceAll(replacement);
-            } else {
+            }
+
+            else {
                 throw new RuntimeException("Unrecognized type: " + value.type);
             }
         }
