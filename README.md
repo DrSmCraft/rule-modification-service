@@ -32,7 +32,7 @@ Once started, the service should be accessible at:
 
 ---
 
-### 4. **View Docuemntaion**
+### 4. **View Documentation**
 
 See the Swagger UI OpenAPI documention at
 [`http://localhost:9090/docs`](http://localhost:9090/docs/)
@@ -111,5 +111,5 @@ See the Swagger UI OpenAPI documention at
             }
             return newCQL;
            }
-               ```
+        ```
 3. Modify the library name and library version of CQL to new requested values
